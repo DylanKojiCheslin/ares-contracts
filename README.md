@@ -1,4 +1,6 @@
-<img src="http://ares.sh/assets/img/aresprotocol-black-transparent-cropped.png" width="200" />
+<img src="http://ares.sh/assets/img/aresprotocol-black-transparent-cropped.png" width="300" />
+
+<br />
 
 ## ares-protocol
 
