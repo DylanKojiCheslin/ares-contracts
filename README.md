@@ -1,4 +1,4 @@
-<img src="http://ares.sh/assets/img/aresprotocol-black-transparent-cropped.png" />
+<img src="http://ares.sh/assets/img/aresprotocol-black-transparent-cropped.png" width="200" />
 
 ## ares-protocol
 
@@ -12,19 +12,27 @@ In May 2016, a smart contract called “The DAO” was launched on the Ethereum 
 
 The ARES protocol is implemented with the “Solidity” smart-contract programming language. It is composed of 4 contracts: (1) Fund, (2) Token, (3) Board and (4) Rules contracts.
 
-### Fund
+### Fund.sol
 This contract holds the Ether on behalf of all investors.  The Board contract is responsible for directing the Fund to pay out Ether to successful investment proposals.  The Token contract is responsible for directing the Fund to refund Ether to investors who wish to withdraw.
 
-### Token
+See: [Fund.sol](contracts/Fund.sol)
+
+### HoldingToken.sol
 This contract manages the creation of tokens when an investment is made into the Fund, and handles the destruction of tokens when a withdrawal is made from the Fund.  Each token allows the holder to cast a single vote on any proposal. Critically, the Token contract also ensures that tokens cannot change ownership during a vote on a proposal.  This ensures that a set of tokens can’t vote multiple times on a single proposal.
 
-### Board
+See: [HoldingToken.sol](contracts/HoldingToken.sol)
+
+### BoardRoom.sol
 This contract handles the creation, voting, and execution of investment proposals, as well as any proposals to change the Rules contract.  The Board contract defers to the Rules contract for all its conditions.
 
-### Rules
+See: [BoardRoom.sol](contracts/BoardRoom.sol)
+
+### ARESRules.sol
 This contract defines all the conditions that are required for the actual operation of the DAO.  These conditions include the bond size, voting period, grace period, voting quorum, execution period, the interpreting of votes, among others.
 
-See: [ARES Protocol White Paper](http://ares.sh/white-paper) for more details.
+See: [ARESRules.sol](contracts/ARESRules.sol)
+
+For more details, see: [ARES Protocol White Paper](http://ares.sh/white-paper) for more details.
 
 ## Contributing
 
@@ -61,7 +69,7 @@ We communicate via [issues](https://github.com/ares-protocol/ares-protocol/issue
 
 ## Relationship to the DAO
 
-ARES Protocol has no formal relation to the Slock.it project DAO. While we do reference "the DAO" in the ARES protocol white paper, we do not directly use any code from their repositories.
+ARES Protocol has no formal relation to the Slock.it DAO project. While we do reference "the DAO" in the ARES protocol white paper, we do not directly use any code from their repositories.
 
 See: [ARES Protocol White Paper](http://ares.sh/white-paper) for more details.
 
