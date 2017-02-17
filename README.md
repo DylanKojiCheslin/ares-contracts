@@ -1,6 +1,6 @@
-## ares-protocol
+<img src="http://ares.sh/assets/img/aresprotocol-black-transparent-cropped.png" />
 
-<br />
+## ares-protocol
 
 The official Ethereum smart-contract implementaiton of the ARES protocol.
 
