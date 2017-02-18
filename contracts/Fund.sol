@@ -11,7 +11,11 @@ contract Fund {
   }
 
   /// @notice The contract fallback function
-  function () public payable {}
+  function () public payable {}    
+
+  function Fund() public {
+    owner = msg.sender;
+  }
 
   function transfer_ownership(address _owner) public onlyowners {
     owner = _owner;
@@ -19,10 +23,6 @@ contract Fund {
 
   function setToken(address _token) public onlyowners {
     token = _token;
-  }
-
-  function Fund() public {
-    owner = msg.sender;
   }
 
   function forward_transaction(

@@ -33,85 +33,10 @@ contract ARESRules is Rules {
     }
   }
 
-  function isVariableChangeProposal(uint256 _proposalID) public constant returns (bool) {
-    uint256 created = board.createdOn(_proposalID);
-
-    if ((created >= variableChangeVotingDate && created < variableChangeVotingDate + 1 days)
-      && board.proxyOf(_proposalID) == address(0)
-      && board.destinationOf(_proposalID) == address(this)) {
-      return true;
-    }
-  }
-
-  function isRuleContractChangeProposal(uint256 _proposalID) public constant returns (bool) {
-    address destination = board.destinationOf(_proposalID);
-
-    if (board.proxyOf(_proposalID) == address(0)
-      && (destination == address(board) || destination == address(fund))) {
-      return true;
-    }
-  }
-
-  function minimumQuorum(uint256 _value) public constant returns (uint256) {
-    // minimum of 12% and maximum of 24%
-    return token.totalSupply() / baseQuorum +
-        (fund.balance * token.totalSupply() * baseQuorum) / _value;
-  }
-
-  function hasWon(uint256 _proposalID) public constant saleEnded returns (bool) {
-    uint256 totalNoVotes = board.positionWeightOf(_proposalID, NO_VOTE);
-    uint256 totalYesVotes = board.positionWeightOf(_proposalID, YES_VOTE);
-    uint256 quorum = totalYesVotes + totalNoVotes;
-    bool isVariableChanging = isVariableChangeProposal(_proposalID);
-    bool isFundamentalChanging = isRuleContractChangeProposal(_proposalID);
-
-    if(quorum > minimumQuorum(board.valueOf(_proposalID))
-      && now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod)
-      && (!isVariableChanging || (_proposalID == variableChangePID && now > variableChangeVotingDate + 2 weeks))
-      && (!isFundamentalChanging || (quorum > (token.totalSupply() / 66)))
-      && totalYesVotes > totalNoVotes) {
-      return true;
-    }
-  }
-
-  function canExecute(address _sender, uint256 _proposalID) public constant saleEnded returns (bool) {
-    if (hasWon(_proposalID)
-      && (now < (board.createdOn(_proposalID) + debatePeriod + votingPeriod + gracePeriod + executionPeriod))
-      && (now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod + gracePeriod))) {
-      return true;
-    }
-  }
-
-  function canVote(address _sender, uint256 _proposalID, uint256 _position) public constant saleEnded returns (bool) {
-    uint256 created = board.createdOn(_proposalID);
-
-    if((_position == BOND_REFUND_VOTE
-        && now > token.burnedAt(_sender)
-        && now < token.burnedAt(_sender) + 1 days
-        && token.burned(msg.sender) > 0)
-      || ((_position == NO_VOTE || _position == YES_VOTE)
-        && now > (created + debatePeriod)
-        && now < (created + debatePeriod + votingPeriod)
-        && (!isVariableChangeProposal(_proposalID) || (now < variableChangeVotingDate + 1 weeks))
-        && token.holdUntil(_sender) > (created + debatePeriod + votingPeriod)
-        && board.hasVoted(_proposalID, _sender) == false)) {
-      return true;
-    }
-  }
-
-  function canPropose(address _sender) public constant saleEnded returns (bool) {
-    if(token.balanceOf(_sender) > 0
-      && bonds[_sender][board.nonces(_sender)] == minimumBondRequired) {
-      return true;
-    }
-  }
-
-  function votingWeightOf(address _sender, uint256 _proposalID) public constant returns (uint256) {
-    if (token.burnBalance(msg.sender) > 0) {
-      return token.burnBalance(msg.sender);
-    } else {
-      return token.balanceOf(_sender);
-    }
+  function ARESRules(address _token, address _fund) public {
+    token = HoldingToken(_token);
+    board = Board(msg.sender);
+    fund = _fund;
   }
 
   function changeVariables(
@@ -185,10 +110,85 @@ contract ARESRules is Rules {
     } else { throw; }
   }
 
-  function ARESRules(address _token, address _fund) public {
-    token = HoldingToken(_token);
-    board = Board(msg.sender);
-    fund = _fund;
+  function isVariableChangeProposal(uint256 _proposalID) public constant returns (bool) {
+    uint256 created = board.createdOn(_proposalID);
+
+    if ((created >= variableChangeVotingDate && created < variableChangeVotingDate + 1 days)
+      && board.proxyOf(_proposalID) == address(0)
+      && board.destinationOf(_proposalID) == address(this)) {
+      return true;
+    }
+  }
+
+  function isRuleContractChangeProposal(uint256 _proposalID) public constant returns (bool) {
+    address destination = board.destinationOf(_proposalID);
+
+    if (board.proxyOf(_proposalID) == address(0)
+      && (destination == address(board) || destination == address(fund))) {
+      return true;
+    }
+  }
+
+  function minimumQuorum(uint256 _value) public constant returns (uint256) {
+    // minimum of 12% and maximum of 24%
+    return token.totalSupply() / baseQuorum +
+        (fund.balance * token.totalSupply() * baseQuorum) / _value;
+  }
+
+  function hasWon(uint256 _proposalID) public constant saleEnded returns (bool) {
+    uint256 totalNoVotes = board.positionWeightOf(_proposalID, NO_VOTE);
+    uint256 totalYesVotes = board.positionWeightOf(_proposalID, YES_VOTE);
+    uint256 quorum = totalYesVotes + totalNoVotes;
+    bool isVariableChanging = isVariableChangeProposal(_proposalID);
+    bool isRuleContractChanging = isRuleContractChangeProposal(_proposalID);
+
+    if(quorum > minimumQuorum(board.valueOf(_proposalID))
+      && now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod)
+      && (!isVariableChanging || (_proposalID == variableChangePID && now > variableChangeVotingDate + 2 weeks))
+      && (!isRuleContractChanging || (quorum > (token.totalSupply() / 66)))
+      && totalYesVotes > totalNoVotes) {
+      return true;
+    }
+  }
+
+  function canExecute(address _sender, uint256 _proposalID) public constant saleEnded returns (bool) {
+    if (hasWon(_proposalID)
+      && (now < (board.createdOn(_proposalID) + debatePeriod + votingPeriod + gracePeriod + executionPeriod))
+      && (now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod + gracePeriod))) {
+      return true;
+    }
+  }
+
+  function canVote(address _sender, uint256 _proposalID, uint256 _position) public constant saleEnded returns (bool) {
+    uint256 created = board.createdOn(_proposalID);
+
+    if((_position == BOND_REFUND_VOTE
+        && now > token.burnedAt(_sender)
+        && now < token.burnedAt(_sender) + 1 days
+        && token.burned(msg.sender) > 0)
+      || ((_position == NO_VOTE || _position == YES_VOTE)
+        && now > (created + debatePeriod)
+        && now < (created + debatePeriod + votingPeriod)
+        && (!isVariableChangeProposal(_proposalID) || (now < variableChangeVotingDate + 1 weeks))
+        && token.holdUntil(_sender) > (created + debatePeriod + votingPeriod)
+        && board.hasVoted(_proposalID, _sender) == false)) {
+      return true;
+    }
+  }
+
+  function canPropose(address _sender) public constant saleEnded returns (bool) {
+    if(token.balanceOf(_sender) > 0
+      && bonds[_sender][board.nonces(_sender)] == minimumBondRequired) {
+      return true;
+    }
+  }
+
+  function votingWeightOf(address _sender, uint256 _proposalID) public constant returns (uint256) {
+    if (token.burnBalance(msg.sender) > 0) {
+      return token.burnBalance(msg.sender);
+    } else {
+      return token.balanceOf(_sender);
+    }
   }
 
   mapping(address => mapping(uint256 => uint256)) public bonds;

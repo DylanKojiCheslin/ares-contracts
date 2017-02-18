@@ -26,6 +26,30 @@ contract HoldingToken is StandardToken {
       _;
     } else { throw; }
   }
+  
+  function HoldingToken(address _fund,
+    uint256 _tokenCap,
+    uint256 _tokenPrice,
+    uint256 _lastIssuance,
+    address _token,
+    address _negationBoard,
+    uint256 _negationProposalID,
+    uint256 _negationPosition,
+    address[] _whitelist) public {
+    lastIssuance = _lastIssuance;
+    tokenCap = _tokenCap;
+    tokenPrice = _tokenPrice;
+    fund = Proxy(_fund);
+    board = Board(_negationBoard);
+    token = HoldingToken(_token);
+    negationProposal = _negationProposalID;
+    negationPosition = _negationPosition;
+    totalWhitelisted = _whitelist.length;
+
+    for (uint256 i = 0; i <= uint256(_whitelist.length); i++) {
+      whitelist[_whitelist[i]] = true;
+    }
+  }
 
   function purchaseTokens() public validPurchase payable returns (uint256 amountPurchased) {
     if (msg.value < tokenPrice) { throw; }
@@ -76,30 +100,6 @@ contract HoldingToken is StandardToken {
 
   function approve(address _spender, uint256 _value) public released(msg.sender) returns (bool success) {
     return super.approve(_spender, _value);
-  }
-
-  function HoldingToken(address _fund,
-    uint256 _tokenCap,
-    uint256 _tokenPrice,
-    uint256 _lastIssuance,
-    address _token,
-    address _negationBoard,
-    uint256 _negationProposalID,
-    uint256 _negationPosition,
-    address[] _whitelist) public {
-    lastIssuance = _lastIssuance;
-    tokenCap = _tokenCap;
-    tokenPrice = _tokenPrice;
-    fund = Proxy(_fund);
-    board = Board(_negationBoard);
-    token = HoldingToken(_token);
-    negationProposal = _negationProposalID;
-    negationPosition = _negationPosition;
-    totalWhitelisted = _whitelist.length;
-
-    for (uint256 i = 0; i <= uint256(_whitelist.length); i++) {
-      whitelist[_whitelist[i]] = true;
-    }
   }
 
   mapping(address => bool) public whitelist;
