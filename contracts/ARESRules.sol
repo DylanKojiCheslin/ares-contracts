@@ -138,14 +138,14 @@ contract ARESRules is Rules {
   function hasWon(uint256 _proposalID) public constant saleEnded returns (bool) {
     uint256 totalNoVotes = board.positionWeightOf(_proposalID, NO_VOTE);
     uint256 totalYesVotes = board.positionWeightOf(_proposalID, YES_VOTE);
-    uint256 quorum = totalYesVotes + totalNoVotes;
+    uint256 quorum = totalYesVotes;
     bool isVariableChanging = isVariableChangeProposal(_proposalID);
     bool isRuleContractChanging = isRuleContractChangeProposal(_proposalID);
 
     if(quorum > minimumQuorum(board.valueOf(_proposalID))
       && now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod)
       && (!isVariableChanging || (_proposalID == variableChangePID && now > variableChangeVotingDate + 2 weeks))
-      && (!isRuleContractChanging || (quorum > (token.totalSupply() / 66)))
+      && (!isRuleContractChanging || (quorum > (token.totalSupply() / 51)))
       && totalYesVotes > totalNoVotes) {
       return true;
     }
@@ -192,9 +192,9 @@ contract ARESRules is Rules {
   }
 
   mapping(address => mapping(uint256 => uint256)) public bonds;
-  uint256 public debatePeriod = 3 weeks;
+  uint256 public debatePeriod = 2 weeks;
   uint256 public votingPeriod = 1 weeks;
-  uint256 public gracePeriod = 1 weeks;
+  uint256 public gracePeriod = 2 weeks;
   uint256 public executionPeriod = 1 weeks;
   uint256 public baseQuorum = 12;
   uint256 public minimumBondRequired = 1000 ether;
