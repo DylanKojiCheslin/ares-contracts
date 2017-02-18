@@ -18,6 +18,7 @@ contract DAOFactory {
     uint256 _tokenPrice,
     uint256 _lastIssuance,
     address _token,
+    address _negationBoard,
     uint256 _negationProposalID,
     uint256 _negationPosition,
     address[] _whitelist,
