@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+Rules - contractual interface for the BoardRoom rules contract.
+*/
+
 pragma solidity ^0.4.4;
 
 

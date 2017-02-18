@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+Fund - the fund contract which is controlled by the Board and the token contract.
+*/
+
 pragma solidity ^0.4.4;
 
 
@@ -11,7 +17,7 @@ contract Fund {
   }
 
   /// @notice The contract fallback function
-  function () public payable {}    
+  function () public payable {}
 
   function Fund() public {
     owner = msg.sender;

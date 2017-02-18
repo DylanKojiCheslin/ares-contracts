@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+DAOFactory - allows the creation of an ARES Dao in a single transaction.
+*/
+
 pragma solidity ^0.4.4;
 
 import "Rules.sol";
@@ -5,6 +11,7 @@ import "BoardRoom.sol";
 import "HoldingToken.sol";
 import "Fund.sol";
 import "ARESRules.sol";
+
 
 contract DAOFactory {
   function createDAO(uint256 _tokenCap,

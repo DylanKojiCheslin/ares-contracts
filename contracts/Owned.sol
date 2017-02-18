@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+Owned - a simple owned contract with some custom owner properties
+*/
+
 pragma solidity ^0.4.4;
 
 

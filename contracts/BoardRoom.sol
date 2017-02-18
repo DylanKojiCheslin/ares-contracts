@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+BoardRoom - a standard BoardRoom contract controller.
+*/
+
 pragma solidity ^0.4.4;
 
 import "Rules.sol";

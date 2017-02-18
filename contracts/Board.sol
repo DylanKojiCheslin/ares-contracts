@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+Board - a standard BoardRoom contract interface.
+*/
+
 pragma solidity ^0.4.4;
 
 

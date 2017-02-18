@@ -1,10 +1,16 @@
+/*
+ARES Protocol
+
+HoldingToken - the holding token used for voting and burning.
+*/
+
 pragma solidity ^0.4.4;
 
-
-import "StandardToken.sol";
 import "Proxy.sol";
-import "SafeSend.sol";
 import "Board.sol";
+import "StandardToken.sol";
+import "SafeSend.sol";
+
 
 contract HoldingToken is StandardToken {
   modifier released(address _sender) {

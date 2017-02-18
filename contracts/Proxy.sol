@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+Proxy - a proxy contract for forwarding transactions
+*/
+
 pragma solidity ^0.4.4;
 
 

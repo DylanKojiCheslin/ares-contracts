@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+SafeSend - contract for anti-reentrancy sends.
+*/
+
 pragma solidity ^0.4.4;
 
 

@@ -16,6 +16,8 @@ In May 2016, a smart contract called “The DAO” was launched on the Ethereum 
 
 The ARES protocol is implemented with the “Solidity” smart-contract programming language. It is composed of 4 contracts: (1) Fund, (2) Token, (3) Board and (4) Rules contracts.
 
+<img src="http://ares.sh/assets/img/ares-protocol-contract-design-dark.png" />
+
 ### Fund.sol
 This contract holds the Ether on behalf of all investors.  The Board contract is responsible for directing the Fund to pay out Ether to successful investment proposals.  The Token contract is responsible for directing the Fund to refund Ether to investors who wish to withdraw.
 

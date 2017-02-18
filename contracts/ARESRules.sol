@@ -1,3 +1,9 @@
+/*
+ARES Protocol
+
+ARESRules - a BoardRoom rules contract implementing the ARES protocol.
+*/
+
 pragma solidity ^0.4.4;
 
 import "Rules.sol";
