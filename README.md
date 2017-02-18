@@ -8,7 +8,7 @@ The official Ethereum smart-contract implementaiton of the ARES protocol.
 
 ## About
 
-In May 2016, a smart contract called “The DAO” was launched on the Ethereum blockchain.  The contract - a decentralized investment fund – was the first large-scale deployment of a decentralized application. It raised 11.5 million Ether, worth over $230 million US Dollars just prior to its collapse.  This paper critiques the original design of “The DAO” and aims to present an alternative implementation that eliminates any game theoretic and mechanical attacks that would result in the loss of user funds.
+In May 2016, a smart contract called “The DAO” was launched on the Ethereum blockchain.  The contract - a decentralized investment fund – was the first large-scale deployment of a decentralized application. It raised 11.5 million Ether, worth over $230 million US Dollars just prior to its collapse.  The ARES protocol aims to present an alternative implementation to the DAO that eliminates any game theoretic and mechanical attacks that would result in the loss of user funds for active users.
 
 ## Overview
 

@@ -26,7 +26,7 @@ contract HoldingToken is StandardToken {
       _;
     } else { throw; }
   }
-  
+
   function HoldingToken(address _fund,
     uint256 _tokenCap,
     uint256 _tokenPrice,

@@ -31,11 +31,11 @@ contract BoardRoom is Board {
     } else { throw; }
   }
 
+  function () payable public {}
+
   function BoardRoom(address _rules) {
     rules = Rules(_rules);
   }
-
-  function () payable public {}
 
   function newProposal(string _name,
     address _proxy,
@@ -100,8 +100,12 @@ contract BoardRoom is Board {
     return proposals[_proposalID].positions[_position];
   }
 
-  function voteOf(uint256 _proposalID, address _voter)
-    constant returns (uint256 position, uint256 weight, uint256 created) {
+  function voteOf(uint256 _proposalID,
+    address _voter)
+    constant
+    returns (uint256 position,
+      uint256 weight,
+      uint256 created) {
     Vote v = proposals[_proposalID].votes[_voter];
     position = v.position;
     weight = v.weight;
