@@ -8,6 +8,7 @@ import "ARESRules.sol";
 
 contract DAOFactory {
   function createDAO(uint256 _tokenCap,
+    uint256 _tokenPrice,
     uint256 _lastIssuance,
     address _token,
     uint256 _negationProposalID,
@@ -24,6 +25,7 @@ contract DAOFactory {
     fund = address(new Fund());
     token = address(new HoldingToken(_fund,
       _tokenCap,
+      _tokenPrice,
       _lastIssuance,
       _token,
       _negationBoard,

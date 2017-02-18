@@ -28,8 +28,8 @@ contract HoldingToken is StandardToken {
   }
 
   function purchaseTokens() public validPurchase payable returns (uint256 amountPurchased) {
-    if (msg.value < 1 ether) { throw; }
-    amountPurchased = msg.value / 1 ether;
+    if (msg.value < tokenPrice) { throw; }
+    amountPurchased = msg.value / tokenPrice;
 
     if (amountPurchased + totalSupply > tokenCap
       || msg.value == 0
@@ -80,6 +80,7 @@ contract HoldingToken is StandardToken {
 
   function HoldingToken(address _fund,
     uint256 _tokenCap,
+    uint256 _tokenPrice,
     uint256 _lastIssuance,
     address _token,
     address _negationBoard,
@@ -88,6 +89,7 @@ contract HoldingToken is StandardToken {
     address[] _whitelist) public {
     lastIssuance = _lastIssuance;
     tokenCap = _tokenCap;
+    tokenPrice = _tokenPrice;
     fund = Proxy(_fund);
     board = Board(_negationBoard);
     token = HoldingToken(_token);
@@ -106,10 +108,12 @@ contract HoldingToken is StandardToken {
   mapping(address => uint256) public burned;
   mapping(address => uint256) public holdUntil;
 
+  uint256 public tokenCap = 1000000;
+  uint256 public tokenPrice = 1 ether;
+
   uint256 public totalWhitelisted;
   uint256 public totalIssued;
   uint256 public totalBurned;
-  uint256 public tokenCap;
   uint256 public lastIssuance;
   uint256 public negationProposal;
   uint256 public negationPosition;

@@ -38,14 +38,7 @@ For more details, see: [ARES Protocol White Paper](http://ares.sh/white-paper) f
 
 ## Contributing
 
-Please help better the ecosystem by submitting issues and pull requests to `ares-protocol`. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBNB linting standard and the unix philosophy.
-
-## Guides
-
-You'll find more detailed information on using `ares-protocol` and tailoring it to your needs in our guides:
-
-- [User guide](docs/user-guide.md) - Usage, configuration, FAQ and complementary tools.
-- [Developer guide](docs/developer-guide.md) - Contributing to `ares-protocol` and writing your own code and coverage.
+Please help better the ecosystem by submitting issues and pull requests to `ares-protocol`. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBNB linting standard for JS and the unix philosophy for everything.
 
 ## Help out
 

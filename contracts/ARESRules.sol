@@ -43,7 +43,7 @@ contract ARESRules is Rules {
     }
   }
 
-  function isFundamentalChangeProposal(uint256 _proposalID) public constant returns (bool) {
+  function isRuleContractChangeProposal(uint256 _proposalID) public constant returns (bool) {
     address destination = board.destinationOf(_proposalID);
 
     if (board.proxyOf(_proposalID) == address(0)
@@ -63,7 +63,7 @@ contract ARESRules is Rules {
     uint256 totalYesVotes = board.positionWeightOf(_proposalID, YES_VOTE);
     uint256 quorum = totalYesVotes + totalNoVotes;
     bool isVariableChanging = isVariableChangeProposal(_proposalID);
-    bool isFundamentalChanging = isFundamentalChangeProposal(_proposalID);
+    bool isFundamentalChanging = isRuleContractChangeProposal(_proposalID);
 
     if(quorum > minimumQuorum(board.valueOf(_proposalID))
       && now > (board.createdOn(_proposalID) + debatePeriod + votingPeriod)
