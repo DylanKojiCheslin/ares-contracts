@@ -41,7 +41,7 @@ For more details, see: [ARES Protocol White Paper](http://ares.sh/white-paper) f
 
 ## Contributing
 
-Please help better the ecosystem by submitting issues and pull requests to `ares-protocol`. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBNB linting standard for JS and the unix philosophy for everything.
+Please help better the ecosystem by submitting issues and pull requests to `ares-protocol`. We need all the help we can get to build the absolute best community standards and utilities for decentralized governance. We follow the AirBNB linting standard for JS and the unix philosophy for everything.
 
 ## Help out
 
